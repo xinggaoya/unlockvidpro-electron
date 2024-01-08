@@ -9,13 +9,9 @@ declare module 'vue' {
   export interface GlobalComponents {
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
-    NContainer: typeof import('naive-ui')['NContainer']
-    NFooter: typeof import('naive-ui')['NFooter']
     NForm: typeof import('naive-ui')['NForm']
     NFormItem: typeof import('naive-ui')['NFormItem']
-    NImage: typeof import('naive-ui')['NImage']
     NInput: typeof import('naive-ui')['NInput']
-    NLink: typeof import('naive-ui')['NLink']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NSelect: typeof import('naive-ui')['NSelect']
     NSpace: typeof import('naive-ui')['NSpace']
