@@ -125,6 +125,7 @@ onMounted(() => {
     width: 768px;
     height: 100%;
     margin: 0 auto;
+    padding: 20px 0;
   }
 
   #playLine {
@@ -135,11 +136,6 @@ onMounted(() => {
 
 .main-center {
   text-align: center;
-}
-
-.main-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 10px 0;
 }
 </style>
