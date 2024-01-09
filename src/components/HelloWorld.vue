@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from 'vue'
-import {useMessage} from 'naive-ui'
-
-const message = useMessage()
+import {ElNotification} from 'element-plus'
+import logo from '@/assets/logo.png'
 
 const playLine = [
   {'name': '2ys', 'url': 'https://gj.fenxiangb.com/player/analysis.php?v=', 'mobile': 0},
@@ -33,17 +32,16 @@ const iframeUrl = computed(() => {
 const vipAddress = ref(playLine[0].url)
 const videoAddress = ref('')
 
+// 宽度判断是否为移动端
+const isMobile = () => {
+  return document.body.clientWidth <= 768
+}
+
 function inputHande(v: string) {
-  if (v.indexOf('http') === -1) {
-    message.error('请输入正确的视频链接')
-    return
-  }
-  message.success('线路切换成功，请稍后...')
   localStorage.setItem('videoAddress', v)
 }
 
 function vipAddressChange(v: string) {
-  message.success('地址更新成功，正在加载视频...')
   localStorage.setItem('vipAddress', v)
 }
 
@@ -56,54 +54,63 @@ onMounted(() => {
   if (vip) {
     vipAddress.value = vip
   }
+
+  ElNotification({
+    title: '提示',
+    message: '部分接口存在恶意广告；仅供测试！！',
+    type: 'warning'
+  })
 })
 </script>
 
 <template>
   <div class="common-layout">
-    <div>
-      <div>
-        <iframe
-            id="playLine"
-            :src="iframeUrl"
-            width="100%"
-            title="YouTube video player"
-            allowfullscreen
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        ></iframe>
-      </div>
-      <div>
+    <el-container>
+      <el-header class="main-header">
         <div>
-          <n-form>
-            <n-form-item label="播放线路">
-              <n-select v-model:value="vipAddress" placeholder="请选择播放线路"
-                        :options="playLine"
-                        label-field="name"
-                        value-field="url"
-                        @update:value="vipAddressChange">
-              </n-select>
-            </n-form-item>
-            <n-form-item label="视频链接">
-              <n-input type="textarea" v-model:value="videoAddress" rows="4" @input="inputHande"
-                       placeholder="请输入视频原链接"/>
-            </n-form-item>
-          </n-form>
+          <el-image :src="logo" style="width: 40px;margin: 0 10px"/>
         </div>
         <div class="main-center">
-          <n-space justify="center">
-            <n-button text tag="a" href="https://www.iqiyi.com" target="_blank">爱奇艺
-            </n-button>
-            <n-button text tag="a" href="https://v.qq.com" target="_blank">腾讯视频
-            </n-button>
-            <n-button text tag="a" href="https://www.youku.com" target="_blank">优酷</n-button>
-          </n-space>
+          <h1 style="display: inline-block">UnlockVid Pro</h1>
         </div>
-      </div>
-    </div>
-    <div class="main-center">
-      <n-text tag="mark">请注意部分接口存在恶意广告，请斟酌使用；仅供测试</n-text>
-    </div>
+      </el-header>
+      <el-main>
+        <div>
+          <iframe
+              id="playLine"
+              :src="iframeUrl"
+              width="100%"
+              title="YouTube video player"
+              allowfullscreen
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          ></iframe>
+        </div>
+        <div>
+          <div>
+            <el-form label-position="top">
+              <el-form-item label="播放线路">
+                <el-select v-model="vipAddress" placeholder="请选择播放线路" @change="vipAddressChange">
+                  <el-option
+                      v-for="(item,index) in playLine"
+                      :key="index"
+                      :label="item.name"
+                      :value="item.url"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="视频链接">
+                <el-input type="textarea" v-model="videoAddress" rows="4" @input="inputHande"
+                          placeholder="请输入视频原链接，支持爱奇艺、腾讯视频、优酷等热门平台"/>
+              </el-form-item>
+            </el-form>
+          </div>
+        </div>
+      </el-main>
+      <el-footer class="main-center">
+        <el-text tag="mark">请注意部分接口存在恶意广告，请斟酌使用；仅供测试</el-text>
+      </el-footer>
+    </el-container>
   </div>
 </template>
 
@@ -125,7 +132,6 @@ onMounted(() => {
     width: 768px;
     height: 100%;
     margin: 0 auto;
-    padding: 20px 0;
   }
 
   #playLine {
@@ -136,6 +142,11 @@ onMounted(() => {
 
 .main-center {
   text-align: center;
-  padding: 10px 0;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

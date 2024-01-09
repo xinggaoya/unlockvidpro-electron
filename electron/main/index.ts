@@ -47,8 +47,8 @@ const indexHtml = join(process.env.DIST, 'index.html')
 async function createWindow() {
     win = new BrowserWindow({
         title: 'UnlockVid Pro',
-        width: 1200,
-        height: 800,
+        width: 1300,
+        height: 900,
         icon: join(process.env.VITE_PUBLIC, 'logo.svg'),
         webPreferences: {
             preload,

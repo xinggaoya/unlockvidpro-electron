@@ -7,14 +7,17 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElFooter: typeof import('element-plus/es')['ElFooter']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElHeader: typeof import('element-plus/es')['ElHeader']
+    ElImage: typeof import('element-plus/es')['ElImage']
+    ElInput: typeof import('element-plus/es')['ElInput']
+    ElMain: typeof import('element-plus/es')['ElMain']
+    ElOption: typeof import('element-plus/es')['ElOption']
+    ElSelect: typeof import('element-plus/es')['ElSelect']
+    ElText: typeof import('element-plus/es')['ElText']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    NButton: typeof import('naive-ui')['NButton']
-    NForm: typeof import('naive-ui')['NForm']
-    NFormItem: typeof import('naive-ui')['NFormItem']
-    NInput: typeof import('naive-ui')['NInput']
-    NMessageProvider: typeof import('naive-ui')['NMessageProvider']
-    NSelect: typeof import('naive-ui')['NSelect']
-    NSpace: typeof import('naive-ui')['NSpace']
-    NText: typeof import('naive-ui')['NText']
   }
 }
