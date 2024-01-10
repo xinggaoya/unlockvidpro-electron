@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from 'vue'
 import {ElNotification} from 'element-plus'
-import logo from '@/assets/logo.png'
+import logo from '/public/logo.ico'
 
 const playLine = [
   {'name': '2ys', 'url': 'https://gj.fenxiangb.com/player/analysis.php?v=', 'mobile': 0},

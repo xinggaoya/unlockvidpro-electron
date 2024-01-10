@@ -14,14 +14,14 @@
     "dist-electron"
   ],
   "mac": {
-    "icon": "dist/logo.png",
+    "icon": "dist/logo.ico",
     "target": [
       "dmg"
     ],
     "artifactName": "${productName}-Mac-${version}-Installer.${ext}"
   },
   "win": {
-    "icon": "dist/logo.png",
+    "icon": "dist/logo.ico",
     "target": [
       {
         "target": "nsis",
@@ -39,7 +39,7 @@
     "deleteAppDataOnUninstall": true
   },
   "linux": {
-    "icon": "dist/logo.png",
+    "icon": "dist/logo.ico",
     "target": [
       "AppImage"
     ],

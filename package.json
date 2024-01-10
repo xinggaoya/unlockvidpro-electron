@@ -1,8 +1,8 @@
 {
   "name": "unlockvidpro-electron",
-  "version": "28.0.0",
+  "version": "28.0.1",
   "main": "dist-electron/main/index.js",
-  "description": "Really simple Electron + Vue + Vite boilerplate.",
+  "description": "unlockvidpro-electron vip视频解析",
   "author": "XingGao <1032227283@qq.com>",
   "license": "MIT",
   "private": true,
