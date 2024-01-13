@@ -84,32 +84,12 @@ async function createWindow() {
 
     // 关闭窗口时触发
     win.on('close', (event) => {
-        event.preventDefault();
-        if (tray) {
-            win.hide();
-        } else {
-            win = null;
-        }
+        win = null;
     });
-}
-
-function createTray() {
-    // 创建托盘
-    tray = new Tray(join(process.env.VITE_PUBLIC, 'logo.ico'));
-    // 绑定点击事件
-    tray.on('click', () => {
-        win.isVisible() ? win.hide() : win.show();
-    });
-    // 绑定右键菜单
-    const contextMenu = Menu.buildFromTemplate([
-        {label: '退出', click: () => app.quit()},
-    ]);
-    tray.setContextMenu(contextMenu);
 }
 
 app.whenReady().then(() => {
     createWindow();
-    createTray();
 })
 
 app.on('window-all-closed', () => {

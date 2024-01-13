@@ -1,6 +1,6 @@
 {
   "name": "unlockvidpro-electron",
-  "version": "28.0.1",
+  "version": "28.0.2",
   "main": "dist-electron/main/index.js",
   "description": "unlockvidpro-electron vip视频解析",
   "author": "XingGao <1032227283@qq.com>",
@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.1",
-    "electron": "^28.1.0",
+    "electron": "^28.1.3",
     "electron-builder": "^24.9.1",
     "tree-kill": "^1.2.2",
     "typescript": "^5.3.3",
