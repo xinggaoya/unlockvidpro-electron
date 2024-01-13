@@ -1,4 +1,4 @@
-import {app, BrowserWindow, shell, ipcMain} from 'electron'
+import {app, BrowserWindow, shell, ipcMain, Tray, Menu} from 'electron'
 import {release} from 'node:os'
 import {join, dirname} from 'node:path'
 import {fileURLToPath} from 'node:url'
@@ -39,6 +39,7 @@ if (!app.requestSingleInstanceLock()) {
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 let win: BrowserWindow | null = null
+let tray = null;
 // Here, you can also use other preload
 const preload = join(__dirname, '../preload/index.mjs')
 const url = process.env.VITE_DEV_SERVER_URL
@@ -49,7 +50,7 @@ async function createWindow() {
         title: 'UnlockVid Pro',
         width: 1300,
         height: 900,
-        icon: join(process.env.VITE_PUBLIC, 'logo.svg'),
+        icon: join(process.env.VITE_PUBLIC, 'logo.ico'),
         webPreferences: {
             preload,
             // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -60,7 +61,6 @@ async function createWindow() {
             // contextIsolation: false,
         },
     })
-
     win.removeMenu();
 
     if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298
@@ -81,10 +81,36 @@ async function createWindow() {
         if (url.startsWith('https:')) shell.openExternal(url)
         return {action: 'deny'}
     })
-    // win.webContents.on('will-navigate', (event, url) => { }) #344
+
+    // 关闭窗口时触发
+    win.on('close', (event) => {
+        event.preventDefault();
+        if (tray) {
+            win.hide();
+        } else {
+            win = null;
+        }
+    });
 }
 
-app.whenReady().then(createWindow)
+function createTray() {
+    // 创建托盘
+    tray = new Tray(join(process.env.VITE_PUBLIC, 'logo.ico'));
+    // 绑定点击事件
+    tray.on('click', () => {
+        win.isVisible() ? win.hide() : win.show();
+    });
+    // 绑定右键菜单
+    const contextMenu = Menu.buildFromTemplate([
+        {label: '退出', click: () => app.quit()},
+    ]);
+    tray.setContextMenu(contextMenu);
+}
+
+app.whenReady().then(() => {
+    createWindow();
+    createTray();
+})
 
 app.on('window-all-closed', () => {
     win = null
